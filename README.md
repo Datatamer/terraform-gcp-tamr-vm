@@ -53,7 +53,7 @@ This repo is based on:
 
 # Development
 ## Generating Docs
-Run `make gen` to generate the section of docs around terraform inputs, outputs and requirements.
+Run `make terraform/docs` to generate the section of docs around terraform inputs, outputs and requirements.
 
 ## Checkstyles
 Run `make lint`, this will run terraform fmt, in addition to a few other checks to detect whitespace issues.
