@@ -1,0 +1,102 @@
+# Potential overrides that can be moved to "unify-custom-config.yaml" and read
+# by the start scripts.
+---
+#
+# Bigtable
+#
+
+TAMR_REMOTE_HBASE_ENABLED: true
+TAMR_HBASE_NAMESPACE: ${var.tamr_hbase_namespace}
+TAMR_HBASE_COMPRESSION: none
+TAMR_CONNECTION_INFO_TYPE: bigtable
+TAMR_BIGTABLE_EXTRA_CONFIG: "{}"
+TAMR_BIGTABLE_PROJECT_ID: ${var.tamr_bigtable_project_id}
+TAMR_BIGTABLE_INSTANCE_ID: ${var.tamr_bigtable_instance_id}
+TAMR_BIGTABLE_CLUSTER_ID:  ${var.tamr_bigtable_cluster_id}
+
+TAMR_BIGTABLE_MIN_NODES: ${var.tamr_bigtable_min_nodes}
+TAMR_BIGTABLE_MAX_NODES: ${var.tamr_bigtable_max_nodes}
+
+# question, should be make these configurable
+TAMR_BIGTABLE_SCALING_ENABLED: true
+TAMR_BIGTABLE_DOWNSCALE_DELAY: 1
+TAMR_HBASE_STORAGE_MODE: SHARED
+TAMR_HBASE_NUMBER_OF_REGIONS: 10
+TAMR_HBASE_NUMBER_OF_SALT_VALUES: 600
+TAMR_HBASE_BATCH_SIZE: 100000
+TAMR_HBASE_KEY_SPACE: SALT_AND_PREFIX
+
+#
+# Spark
+#
+
+TAMR_REMOTE_SPARK_ENABLED: true
+TAMR_JOB_SPARK_CLUSTER: dataproc-ephemeral
+TAMR_JOB_DATAPROC_CLUSTER_NAME: tamr
+TAMR_JOB_DATAPROC_PROJECT_ID: ${var.tamr_dataproc_project_id}
+TAMR_JOB_DATAPROC_REGION: ${var.tamr_dataproc_region}
+TAMR_JOB_DATAPROC_CLUSTER_CONFIG: |
+${var.tamr_dataproc_cluster_config}
+
+TAMR_JOB_SPARK_DRIVER_MEM: ${var.tamr_spark_driver_memory}
+TAMR_JOB_SPARK_EXECUTOR_CORES: ${var.tamr_spark_executor_cores}
+TAMR_JOB_SPARK_EXECUTOR_MEM: ${var.tamr_spark_executor_memory}
+TAMR_JOB_SPARK_EXECUTOR_INSTANCES: ${var.tamr_spark_executor_instances}
+TAMR_JOB_SPARK_PROPS: |
+${var.tamr_spark_properties_override}
+
+TAMR_JOB_SPARK_EVENT_LOGS_DIR: gs://${var.tamr_dataproc_bucket}/spark-events
+TAMR_MAX_ROWS_PER_PARTITION: 50000
+
+#
+# Cloud SQL (PostgreSQL)
+#
+
+TAMR_PERSISTENCE_DB_URL: jdbc:postgresql://google/doit?ssl=false&socketFactory=com.google.cloud.sql.postgres.SocketFactory&cloudSqlInstance=${var.tamr_cloud_sql_project}:${var.tamr_cloud_sql_location}:${var.tamr_cloud_sql_name}
+TAMR_PERSISTENCE_DB_PASS: ${var.tamr_sql_password}
+TAMR_PERSISTENCE_DB_USER: ${var.tamr_sql_user}
+
+#
+# Elasticsearch
+#
+
+TAMR_ES_ENABLED: ${var.tamr_es_enabled}
+TAMR_REMOTE_ES_ENABLED: true
+TAMR_UNIFY_BACKUP_ES: ${var.tamr_es_enabled}
+TAMR_ES_APIHOST: ${var.tamr_es_apihost}
+TAMR_ES_NETWORK_HOST: _site_
+%{ if var.tamr_es_user != "" }TAMR_ES_USER: ${var.tamr_es_user}%{ endif }
+%{ if var.tamr_es_password != "" }TAMR_ES_PASSWORD: ${var.tamr_es_password}%{ endif }
+TAMR_ES_SSL_ENABLED: ${var.tamr_es_ssl_enabled}
+TAMR_ES_INDEX_NUMBER_OF_SHARDS: ${var.tamr_es_number_of_shards}
+TAMR_ES_SOCKET_TIMEOUT: ${var.tamr_es_socket_timeout}
+
+# TODO pending ES investigation
+TAMR_ES_INDEX_STATIC_SETTINGS: |
+  index.number_of_shards: 5
+  index.translog.sync_interval: 300s
+TAMR_ES_INDEX_DYNAMIC_SETTINGS: |
+  index.number_of_replicas: 0
+  index.mapping.total_fields.limit: 1000000
+  index.refresh_interval: 300s
+  index.merge.scheduler.max_thread_count: 8
+  index.translog.durability: async
+  index.translog.flush_threshold_size: 1gb
+
+#
+# Logging
+#
+
+TAMR_LOG_JSON_ENABLED: false
+
+#
+# Filesystem
+#
+
+TAMR_FS_URI: gs://${tamr_filesystem_bucket}
+TAMR_FS_KERBEROS_ENABLED: false
+TAMR_BACKUP_FS_KERBEROS_ENABLED: false
+TAMR_UNIFY_DATA_DIR: gs://${tamr_filesystem_bucket}/001/unify-data
+TAMR_UNIFY_BACKUP_URI: gs://${tamr_filesystem_bucket}/001/backups
+
+%{ if var.tamr_license_key != "" }TAMR_LICENSE_KEY: ${var.tamr_license_key}%{ endif }
