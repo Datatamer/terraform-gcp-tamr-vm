@@ -15,7 +15,6 @@ No input.
 
 | Name | Description |
 |------|-------------|
-| example\_value | Example variable. |
-| null\_resource\_id | An arbitrary value that changes each time the resource is replaced. |
+| tamr\_config | n/a |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

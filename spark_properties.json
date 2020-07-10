@@ -1,0 +1,11 @@
+    {
+      'spark.dynamicAllocation.enabled':'false',
+      'spark.driver.memoryOverhead':'3072',
+      'spark.executor.memoryOverhead':'2048',
+      'spark.executor.extraJavaOptions':'-Djdk.nio.maxCachedBufferSize=262144',
+      'spark.driver.maxResultSize':'8g',
+      'spark.task.maxFailures':'50',
+      'spark.stage.maxConsecutiveAttempts':'10',
+      'spark.sql.shuffle.partitions':'3100',
+      'spark.default.parallelism':'2900',
+    }
