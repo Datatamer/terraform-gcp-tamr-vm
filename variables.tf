@@ -52,7 +52,12 @@ variable "tamr_dataproc_region" {
 variable "tamr_dataproc_cluster_config" {
   default     = ""
   type        = string
-  description = "If you do not want to use the default dataproc configuration template, pass in a complete dataproc configuration file to variable"
+  description = <<-EOF
+If you do not want to use the default dataproc configuration template, pass in a complete dataproc configuration file to variable.
+If you are passing in a dataproc configure it should not be left padded, we will handle that inside of our template. It is expected to
+a yaml document of a dataproc cluster config
+Refrence spec is https://cloud.google.com/dataproc/docs/reference/rest/v1/ClusterConfig
+EOF
 }
 
 # dataproc cluster configuration values

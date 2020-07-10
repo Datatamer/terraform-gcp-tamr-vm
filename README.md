@@ -74,7 +74,7 @@ No provider.
 | tamr\_dataproc\_region | Region the dataproc uses | `string` | n/a | yes |
 | tamr\_filesystem\_bucket | GCS bucket to use for the tamr default file system | `string` | n/a | yes |
 | tamr\_sql\_password | password for the cloud sql user | `string` | n/a | yes |
-| tamr\_dataproc\_cluster\_config | If you do not want to use the default dataproc configuration template, pass in a complete dataproc configuration file to variable | `string` | `""` | no |
+| tamr\_dataproc\_cluster\_config | If you do not want to use the default dataproc configuration template, pass in a complete dataproc configuration file to variable.<br>If you are passing in a dataproc configure it should not be left padded, we will handle that inside of our template. It is expected to<br>a yaml document of a dataproc cluster config<br>Refrence spec is https://cloud.google.com/dataproc/docs/reference/rest/v1/ClusterConfig | `string` | `""` | no |
 | tamr\_dataproc\_cluster\_enable\_stackdriver\_logging | Enabled stackdriver logging on dataproc clusters. This only used if using the built in tamr\_dataproc\_cluster\_config configuration | `bool` | `true` | no |
 | tamr\_dataproc\_cluster\_master\_disk\_size | Size of disk to use on dataproc master disk This only used if using the built in tamr\_dataproc\_cluster\_config configuration | `number` | `1000` | no |
 | tamr\_dataproc\_cluster\_master\_instance\_type | Instance type to use as dataproc master This only used if using the built in tamr\_dataproc\_cluster\_config configuration | `string` | `"n1-highmem-4"` | no |
