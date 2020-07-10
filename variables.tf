@@ -251,6 +251,12 @@ variable "tamr_license_key" {
   description = "Set a tamr license key"
 }
 
+variable "tamr_json_logging" {
+  default     = false
+  type        = bool
+  description = "Toggle json formatting for tamr logs."
+}
+
 #
 # file system
 #

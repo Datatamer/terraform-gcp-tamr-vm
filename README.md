@@ -52,7 +52,6 @@ This modules creates:
 | Name | Version |
 |------|---------|
 | terraform | >= 0.12 |
-| template | ~> 2.1 |
 
 ## Providers
 
@@ -97,6 +96,7 @@ No provider.
 | tamr\_es\_ssl\_enabled | Whether to connect to Elasticsearch over https or not.  Default is false (http). | `bool` | `false` | no |
 | tamr\_es\_user | Username to use to authenticate to Elasticsearch.  Not required unless the Elasticsearch cluster you're using has security and authentication enabled. | `string` | `""` | no |
 | tamr\_hbase\_namespace | HBase namespace to user, for bigtable this will be the table prefix. | `string` | `"ns0"` | no |
+| tamr\_json\_logging | Toggle json formatting for tamr logs. | `bool` | `false` | no |
 | tamr\_license\_key | Set a tamr license key | `string` | `""` | no |
 | tamr\_spark\_driver\_memory | Amount of memory spark should allocate to spark driver | `string` | `"12G"` | no |
 | tamr\_spark\_executor\_cores | Amount of cores spark should allocate to each spark executor | `number` | `5` | no |

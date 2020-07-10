@@ -64,6 +64,7 @@ locals {
     # file system
     tamr_filesystem_bucket = var.tamr_filesystem_bucket
     # miscellaneous
-    tamr_license_key = var.tamr_license_key
+    tamr_license_key  = var.tamr_license_key
+    tamr_json_logging = var.tamr_json_logging
   })
 }
