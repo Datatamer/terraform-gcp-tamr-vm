@@ -5,7 +5,7 @@ locals {
 }
 
 module "sample" {
-  source = "../"
+  source = "../../"
   # bigtable config
   tamr_bigtable_project_id  = local.gcp_project
   tamr_bigtable_instance_id = "tamr-bigtable-instance"
