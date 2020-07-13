@@ -1,4 +1,59 @@
 #
+# Tamr VM
+#
+variable "tamr_instance_name" {
+  default     = "tamr"
+  type        = string
+  description = "Name of the VM running tamr"
+}
+
+variable "tamr_instance_machine_type" {
+  default     = "n1-highmem-8"
+  type        = string
+  description = "machine type to use for tamr vm"
+}
+
+variable "tamr_instance_zone" {
+  type        = string
+  description = "zone to deploy tamr vm"
+}
+
+# NOTE: for right now requiring this to be set, in the future will use either
+# a publish tamr image or a default ubuntu image
+variable "tamr_instance_image" {
+  type        = string
+  description = "Image to use for boot disk"
+}
+
+variable "tamr_instance_disk_type" {
+  default     = "pd-ssd"
+  type        = string
+  description = "boot disk type"
+}
+
+variable "tamr_instance_disk_size" {
+  default     = 100
+  type        = number
+  description = "size of the boot disk"
+}
+
+variable "tamr_instance_service_account" {
+  type        = string
+  description = "email of service account to attach to the tamr instance"
+}
+
+variable "tamr_instance_subnet" {
+  type        = string
+  description = "subnetwork to attach instance too"
+}
+
+variable "tamr_instance_tags" {
+  default     = []
+  type        = list(string)
+  description = "list of network tags to attach to instance"
+}
+
+#
 # Bigtable
 #
 variable "tamr_hbase_namespace" {
@@ -260,6 +315,12 @@ variable "tamr_json_logging" {
   default     = false
   type        = bool
   description = "Toggle json formatting for tamr logs."
+}
+
+variable "labels" {
+  default     = {}
+  type        = map(string)
+  description = "labels to attach to created resources"
 }
 
 #

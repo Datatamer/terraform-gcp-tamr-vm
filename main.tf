@@ -68,3 +68,36 @@ locals {
     tamr_json_logging = var.tamr_json_logging
   })
 }
+
+# tamr vm
+resource "google_compute_instance" "tamr" {
+  name         = var.tamr_instance_name
+  machine_type = var.tamr_instance_machine_type
+  zone         = var.tamr_instance_zone
+
+  boot_disk {
+    initialize_params {
+      image = var.tamr_instance_image
+      size  = var.tamr_instance_disk_size
+      type  = var.tamr_instance_disk_type
+    }
+  }
+
+  network_interface {
+    subnetwork = var.tamr_instance_subnet
+  }
+
+  tags = var.tamr_instance_tags
+
+  labels = merge(
+    var.labels,
+    { "role" = "tamr" },
+  )
+
+  service_account {
+    scopes = ["cloud-platform"]
+    email  = var.tamr_instance_service_account
+  }
+
+  allow_stopping_for_update = true
+}
