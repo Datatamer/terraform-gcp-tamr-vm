@@ -53,6 +53,18 @@ variable "tamr_instance_tags" {
   description = "list of network tags to attach to instance"
 }
 
+variable "tamr_instance_install_directory" {
+  # Get it?, DataTamer :p
+  default     = "/data/tamr"
+  type        = string
+  description = "directory to install tamr into"
+}
+
+variable "tamr_zip_uri" {
+  type        = string
+  description = "gcs location to download tamr zip from"
+}
+
 #
 # Bigtable
 #

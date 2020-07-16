@@ -30,3 +30,8 @@ output "tmpl_dataproc_config" {
   value       = local.default_dataproc
   description = "dataproc config"
 }
+
+output "tmpl_statup_script" {
+  value       = local.startup_sript
+  description = "rendered metadata startup script"
+}

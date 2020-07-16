@@ -2,9 +2,9 @@ locals {
   #dataproc_config  = var.tamr_dataproc_cluster_config == "" ? data.template_file.dataproc[0].rendered : var.tamr_dataproc_cluster_config
   dataproc_config = var.tamr_dataproc_cluster_config == "" ? local.default_dataproc : var.tamr_dataproc_cluster_config
 
-  spark_properties = var.tamr_spark_properties_override == "" ? file("${path.module}/spark_properties.json") : var.tamr_spark_properties_override
+  spark_properties = var.tamr_spark_properties_override == "" ? file("${path.module}/files/spark_properties.json") : var.tamr_spark_properties_override
 
-  default_dataproc = templatefile("${path.module}/dataproc.yaml.tmpl", {
+  default_dataproc = templatefile("${path.module}/templates/dataproc.yaml.tmpl", {
     subnetwork_uri       = var.tamr_dataproc_cluster_subnetwork_uri
     service_account      = var.tamr_dataproc_cluster_service_account
     zone                 = var.tamr_dataproc_cluster_zone
@@ -25,7 +25,7 @@ locals {
   })
 
 
-  tamr_config = templatefile("${path.module}/tamr_config.yaml.tmpl", {
+  tamr_config = templatefile("${path.module}/templates/tamr_config.yaml.tmpl", {
     # Bigtable
     tamr_hbase_namespace      = var.tamr_hbase_namespace
     tamr_bigtable_project_id  = var.tamr_bigtable_project_id
@@ -67,6 +67,21 @@ locals {
     tamr_license_key  = var.tamr_license_key
     tamr_json_logging = var.tamr_json_logging
   })
+
+  startup_sript = templatefile("${path.module}/templates/startup_script.sh.tmpl", {
+    tamr_zip_uri        = var.tamr_zip_uri
+    tamr_config         = local.tamr_config
+    tamr_home_directory = var.tamr_instance_install_directory
+  })
+}
+
+# NOTE: upload rendered startup script to gcs for 2 reasons
+# 1) so sensitive config, like passwords are not viewable from the VM meta-data directly in the console
+# 2) to work around script limit sizes
+resource "google_storage_bucket_object" "startup_script" {
+  name    = "tamr_gcp_startup.sh"
+  content = local.startup_sript
+  bucket  = var.tamr_filesystem_bucket
 }
 
 # tamr vm
@@ -99,5 +114,8 @@ resource "google_compute_instance" "tamr" {
     email  = var.tamr_instance_service_account
   }
 
+  # TODO: add a shutdown script https://cloud.google.com/compute/docs/shutdownscript
+  #metadata_startup_script = "gs://${var.tamr_filesystem_bucket}/${google_storage_bucket_object.startup_script.name}"
+  metadata_startup_script   = local.startup_sript
   allow_stopping_for_update = true
 }
