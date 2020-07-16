@@ -1,0 +1,4 @@
+#! /bin/bash
+
+# stop tamr
+USER=tamr sudo -S -u tamr -i /bin/bash -c '${tamr_home_directory}/tamr/stop-unify.sh; ${tamr_home_directory}/tamr/stop-dependencies.sh;'

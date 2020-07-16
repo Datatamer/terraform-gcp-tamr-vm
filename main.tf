@@ -73,6 +73,10 @@ locals {
     tamr_config         = local.tamr_config
     tamr_home_directory = var.tamr_instance_install_directory
   })
+
+  shutdown_sript = templatefile("${path.module}/templates/shutdown_script.sh.tmpl", {
+    tamr_home_directory = var.tamr_instance_install_directory
+  })
 }
 
 # NOTE: upload rendered startup script to gcs for 2 reasons
@@ -80,6 +84,12 @@ locals {
 # 2) to work around script limit sizes
 resource "google_storage_bucket_object" "startup_script" {
   name    = "tamr_gcp_startup.sh"
+  content = local.startup_sript
+  bucket  = var.tamr_filesystem_bucket
+}
+
+resource "google_storage_bucket_object" "shutdown_script" {
+  name    = "tamr_gcp_shutdown.sh"
   content = local.startup_sript
   bucket  = var.tamr_filesystem_bucket
 }
@@ -114,8 +124,10 @@ resource "google_compute_instance" "tamr" {
     email  = var.tamr_instance_service_account
   }
 
-  # TODO: add a shutdown script https://cloud.google.com/compute/docs/shutdownscript
-  #metadata_startup_script = "gs://${var.tamr_filesystem_bucket}/${google_storage_bucket_object.startup_script.name}"
-  metadata_startup_script   = local.startup_sript
+  metadata = {
+    startup-script-url  = "gs://${var.tamr_filesystem_bucket}/${google_storage_bucket_object.startup_script.name}"
+    shutdown-script-url = "gs://${var.tamr_filesystem_bucket}/${google_storage_bucket_object.shutdown_script.name}"
+  }
+
   allow_stopping_for_update = true
 }
