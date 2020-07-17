@@ -1,13 +1,20 @@
 locals {
-  #dataproc_config  = var.tamr_dataproc_cluster_config == "" ? data.template_file.dataproc[0].rendered : var.tamr_dataproc_cluster_config
+  tamr_dataproc_cluster_zone            = var.tamr_dataproc_cluster_zone == "" ? var.tamr_instance_zone : var.tamr_dataproc_cluster_zone
+  tamr_dataproc_cluster_subnetwork_uri  = var.tamr_dataproc_cluster_subnetwork_uri == "" ? var.tamr_instance_subnet : var.tamr_dataproc_cluster_subnetwork_uri
+  tamr_dataproc_cluster_service_account = var.tamr_dataproc_cluster_service_account == "" ? var.tamr_instance_service_account : var.tamr_dataproc_cluster_service_account
+
+  tamr_bigtable_project_id = var.tamr_bigtable_project_id == "" ? var.tamr_instance_project : var.tamr_bigtable_project_id
+  tamr_cloud_sql_project   = var.tamr_cloud_sql_project == "" ? var.tamr_instance_project : var.tamr_cloud_sql_project
+  tamr_dataproc_project_id = var.tamr_dataproc_project_id == "" ? var.tamr_instance_project : var.tamr_dataproc_project_id
+
   dataproc_config = var.tamr_dataproc_cluster_config == "" ? local.default_dataproc : var.tamr_dataproc_cluster_config
 
   spark_properties = var.tamr_spark_properties_override == "" ? file("${path.module}/files/spark_properties.json") : var.tamr_spark_properties_override
 
   default_dataproc = templatefile("${path.module}/templates/dataproc.yaml.tmpl", {
-    subnetwork_uri       = var.tamr_dataproc_cluster_subnetwork_uri
-    service_account      = var.tamr_dataproc_cluster_service_account
-    zone                 = var.tamr_dataproc_cluster_zone
+    subnetwork_uri       = local.tamr_dataproc_cluster_subnetwork_uri
+    service_account      = local.tamr_dataproc_cluster_service_account
+    zone                 = local.tamr_dataproc_cluster_zone
     stackdriver_logging  = var.tamr_dataproc_cluster_enable_stackdriver_logging
     version              = var.tamr_dataproc_cluster_version
     tamr_dataproc_bucket = var.tamr_dataproc_bucket
@@ -28,13 +35,13 @@ locals {
   tamr_config = templatefile("${path.module}/templates/tamr_config.yaml.tmpl", {
     # Bigtable
     tamr_hbase_namespace      = var.tamr_hbase_namespace
-    tamr_bigtable_project_id  = var.tamr_bigtable_project_id
+    tamr_bigtable_project_id  = local.tamr_bigtable_project_id
     tamr_bigtable_instance_id = var.tamr_bigtable_instance_id
     tamr_bigtable_cluster_id  = var.tamr_bigtable_cluster_id
     tamr_bigtable_min_nodes   = var.tamr_bigtable_min_nodes
     tamr_bigtable_max_nodes   = var.tamr_bigtable_max_nodes
     # dataproc
-    tamr_dataproc_project_id = var.tamr_dataproc_project_id
+    tamr_dataproc_project_id = local.tamr_dataproc_project_id
     tamr_dataproc_region     = var.tamr_dataproc_region
     # NOTE: indent does not indent the first line of a variable, so we prefix it
     # with a new file
@@ -48,7 +55,7 @@ locals {
     # ditto, comment about indent() above
     tamr_spark_properties_override = indent(4, "\n${local.spark_properties}")
     # sql
-    tamr_cloud_sql_project  = var.tamr_cloud_sql_project
+    tamr_cloud_sql_project  = local.tamr_cloud_sql_project
     tamr_cloud_sql_location = var.tamr_cloud_sql_location
     tamr_cloud_sql_name     = var.tamr_cloud_sql_name
     tamr_sql_user           = var.tamr_sql_user
@@ -99,6 +106,7 @@ resource "google_compute_instance" "tamr" {
   name         = var.tamr_instance_name
   machine_type = var.tamr_instance_machine_type
   zone         = var.tamr_instance_zone
+  project      = var.tamr_instance_project
 
   boot_disk {
     initialize_params {
