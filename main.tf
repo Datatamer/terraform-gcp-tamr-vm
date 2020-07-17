@@ -83,7 +83,7 @@ locals {
 # 1) so sensitive config, like passwords are not viewable from the VM meta-data directly in the console
 # 2) to work around script limit sizes
 resource "google_storage_bucket_object" "startup_script" {
-  name    = "tamr_gcp_startup.sh"
+  name    = "tamr_gcp_startup_${md5(local.startup_sript)}.sh"
   content = local.startup_sript
   bucket  = var.tamr_filesystem_bucket
 }
@@ -125,9 +125,19 @@ resource "google_compute_instance" "tamr" {
   }
 
   metadata = {
-    startup-script-url  = "gs://${var.tamr_filesystem_bucket}/${google_storage_bucket_object.startup_script.name}"
     shutdown-script-url = "gs://${var.tamr_filesystem_bucket}/${google_storage_bucket_object.shutdown_script.name}"
   }
+
+  # NOTE: we are using the startup_script field instead of the `startup-script-url` pair in metadata, in order to force
+  # a recreation of the tamr VM after a configuration change. We want the tamr vm to be fully declarative and to not be
+  # a pet vm.
+  metadata_startup_script = <<-EOF
+#! /bin/bash
+
+gsutil cp gs://${var.tamr_filesystem_bucket}/${google_storage_bucket_object.startup_script.name} /tmp/startup_script.sh
+/bin/bash /tmp/startup_script.sh
+
+EOF
 
   allow_stopping_for_update = true
 }
