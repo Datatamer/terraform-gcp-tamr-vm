@@ -47,6 +47,11 @@ variable "tamr_instance_subnet" {
   description = "subnetwork to attach instance too"
 }
 
+variable "tamr_instance_project" {
+  type        = string
+  description = "The project to launch the tamr VM instance in."
+}
+
 variable "tamr_instance_tags" {
   default     = []
   type        = list(string)
@@ -75,8 +80,9 @@ variable "tamr_hbase_namespace" {
 }
 
 variable "tamr_bigtable_project_id" {
+  default     = ""
   type        = string
-  description = "The google project that the bigtable instance lives in"
+  description = "The google project that the bigtable instance lives in. If not set will use the tamr_instance_project as the default value. "
 }
 
 variable "tamr_bigtable_instance_id" {
@@ -102,8 +108,9 @@ variable "tamr_bigtable_max_nodes" {
 # dataproc
 #
 variable "tamr_dataproc_project_id" {
+  default     = ""
   type        = string
-  description = "Project for the dataproc cluster"
+  description = "Project for the dataproc cluster. If not set will use the tamr_instance_project as the default value. "
 }
 
 variable "tamr_dataproc_bucket" {
@@ -113,7 +120,7 @@ variable "tamr_dataproc_bucket" {
 
 variable "tamr_dataproc_region" {
   type        = string
-  description = "Region the dataproc uses"
+  description = "Region the dataproc uses."
 }
 
 variable "tamr_dataproc_cluster_config" {
@@ -132,19 +139,19 @@ EOF
 variable "tamr_dataproc_cluster_subnetwork_uri" {
   default     = ""
   type        = string
-  description = "Subnetwork URI for dataproc to use. This only used if using the built in tamr_dataproc_cluster_config configuration"
+  description = "Subnetwork URI for dataproc to use. If not set will use the tamr_instance_subnet as the default value. This only used if using the built in tamr_dataproc_cluster_config configuration"
 }
 
 variable "tamr_dataproc_cluster_service_account" {
   default     = ""
   type        = string
-  description = "Service account to attach to dataproc workers. This only used if using the built in tamr_dataproc_cluster_config configuration"
+  description = "Service account to attach to dataproc workers. If not set will use the tamr_instance_service_account as the default value. This only used if using the built in tamr_dataproc_cluster_config configuration"
 }
 
 variable "tamr_dataproc_cluster_zone" {
   default     = ""
   type        = string
-  description = "Zone to launch dataproc cluster into. This only used if using the built in tamr_dataproc_cluster_config configuration"
+  description = "Zone to launch dataproc cluster into. If not set will use the tamr_instance_zone as the default value. This only used if using the built in tamr_dataproc_cluster_config configuration"
 }
 
 variable "tamr_dataproc_cluster_enable_stackdriver_logging" {
@@ -244,8 +251,9 @@ variable "tamr_spark_properties_override" {
 # Cloud SQL (PostgreSQL)
 #
 variable "tamr_cloud_sql_project" {
+  default     = ""
   type        = string
-  description = "project containing cloudsql instance"
+  description = "project containing cloudsql instance. If not set will use the tamr_instance_project as the default value."
 }
 
 variable "tamr_cloud_sql_location" {
