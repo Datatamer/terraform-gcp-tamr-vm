@@ -22,9 +22,12 @@ if [[ ! -f ${tamr_home_directory}/tamr/start.sh ]]; then
     # apply custom config
     echo -e "$${TAMR_CONFIG}" > ${tamr_home_directory}/tamr/conf/unify-custom-config.yaml
     chown -R tamr:tamr ${tamr_home_directory}/tamr/conf/unify-custom-config.yaml
-    # move the config overrides to a backup file to prevent perpetual override
-    mv  ${tamr_home_directory}/tamr/conf/unify-custom-config.yaml ${tamr_home_directory}/tamr/conf/unify-custom-config.yaml.bak
 fi
 
 # start tamr
 USER=tamr sudo -S -u tamr -i /bin/bash -c '${tamr_home_directory}/tamr/start-dependencies.sh; ${tamr_home_directory}/tamr/start-unify.sh'
+
+if [[ ! -f ${tamr_home_directory}/tamr/conf/unify-custom-config.yaml ]]; then
+    # move the config overrides to a backup file to prevent perpetual override
+    mv  ${tamr_home_directory}/tamr/conf/unify-custom-config.yaml ${tamr_home_directory}/tamr/conf/unify-custom-config.yaml.bak
+fi
