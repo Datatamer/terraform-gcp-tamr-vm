@@ -55,7 +55,9 @@ This modules creates:
 
 ## Providers
 
-No provider.
+| Name | Version |
+|------|---------|
+| google | n/a |
 
 ## Inputs
 
@@ -73,7 +75,13 @@ No provider.
 | tamr\_dataproc\_project\_id | Project for the dataproc cluster | `string` | n/a | yes |
 | tamr\_dataproc\_region | Region the dataproc uses | `string` | n/a | yes |
 | tamr\_filesystem\_bucket | GCS bucket to use for the tamr default file system | `string` | n/a | yes |
+| tamr\_instance\_image | Image to use for boot disk | `string` | n/a | yes |
+| tamr\_instance\_service\_account | email of service account to attach to the tamr instance | `string` | n/a | yes |
+| tamr\_instance\_subnet | subnetwork to attach instance too | `string` | n/a | yes |
+| tamr\_instance\_zone | zone to deploy tamr vm | `string` | n/a | yes |
 | tamr\_sql\_password | password for the cloud sql user | `string` | n/a | yes |
+| tamr\_zip\_uri | gcs location to download tamr zip from | `string` | n/a | yes |
+| labels | labels to attach to created resources | `map(string)` | `{}` | no |
 | tamr\_dataproc\_cluster\_config | If you do not want to use the default dataproc configuration template, pass in a complete dataproc configuration file to variable.<br>If you are passing in a dataproc configure it should not be left padded, we will handle that inside of our template. It is expected to<br>a yaml document of a dataproc cluster config<br>Refrence spec is https://cloud.google.com/dataproc/docs/reference/rest/v1/ClusterConfig | `string` | `""` | no |
 | tamr\_dataproc\_cluster\_enable\_stackdriver\_logging | Enabled stackdriver logging on dataproc clusters. This only used if using the built in tamr\_dataproc\_cluster\_config configuration | `bool` | `true` | no |
 | tamr\_dataproc\_cluster\_master\_disk\_size | Size of disk to use on dataproc master disk This only used if using the built in tamr\_dataproc\_cluster\_config configuration | `number` | `1000` | no |
@@ -96,6 +104,12 @@ No provider.
 | tamr\_es\_ssl\_enabled | Whether to connect to Elasticsearch over https or not.  Default is false (http). | `bool` | `false` | no |
 | tamr\_es\_user | Username to use to authenticate to Elasticsearch.  Not required unless the Elasticsearch cluster you're using has security and authentication enabled. | `string` | `""` | no |
 | tamr\_hbase\_namespace | HBase namespace to user, for bigtable this will be the table prefix. | `string` | `"ns0"` | no |
+| tamr\_instance\_disk\_size | size of the boot disk | `number` | `100` | no |
+| tamr\_instance\_disk\_type | boot disk type | `string` | `"pd-ssd"` | no |
+| tamr\_instance\_install\_directory | directory to install tamr into | `string` | `"/data/tamr"` | no |
+| tamr\_instance\_machine\_type | machine type to use for tamr vm | `string` | `"n1-highmem-8"` | no |
+| tamr\_instance\_name | Name of the VM running tamr | `string` | `"tamr"` | no |
+| tamr\_instance\_tags | list of network tags to attach to instance | `list(string)` | `[]` | no |
 | tamr\_json\_logging | Toggle json formatting for tamr logs. | `bool` | `false` | no |
 | tamr\_license\_key | Set a tamr license key | `string` | `""` | no |
 | tamr\_spark\_driver\_memory | Amount of memory spark should allocate to spark driver | `string` | `"12G"` | no |
@@ -110,7 +124,12 @@ No provider.
 | Name | Description |
 |------|-------------|
 | tamr\_config\_file | full tamr config file |
+| tamr\_instance\_internal\_ip | internal ip of tamr vm |
+| tamr\_instance\_name | name of the tamr vm |
+| tamr\_instance\_self\_link | full self link of created tamr vm |
+| tamr\_instance\_zone | zone of the tamr vm |
 | tmpl\_dataproc\_config | dataproc config |
+| tmpl\_statup\_script | rendered metadata startup script |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
