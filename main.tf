@@ -3,6 +3,9 @@ locals {
   tamr_dataproc_cluster_subnetwork_uri  = var.tamr_dataproc_cluster_subnetwork_uri == "" ? var.tamr_instance_subnet : var.tamr_dataproc_cluster_subnetwork_uri
   tamr_dataproc_cluster_service_account = var.tamr_dataproc_cluster_service_account == "" ? var.tamr_instance_service_account : var.tamr_dataproc_cluster_service_account
 
+  tamr_es_apihost = var.tamr_es_apihost == "" ? "${google_compute_address.tamr_ip.address}:9200" : var.tamr_es_apihost
+  remote_es       = var.tamr_es_apihost == "" ? false : true
+
   tamr_bigtable_project_id = var.tamr_bigtable_project_id == "" ? var.tamr_instance_project : var.tamr_bigtable_project_id
   tamr_cloud_sql_project   = var.tamr_cloud_sql_project == "" ? var.tamr_instance_project : var.tamr_cloud_sql_project
   tamr_dataproc_project_id = var.tamr_dataproc_project_id == "" ? var.tamr_instance_project : var.tamr_dataproc_project_id
@@ -61,8 +64,9 @@ locals {
     tamr_sql_user           = var.tamr_sql_user
     tamr_sql_password       = var.tamr_sql_password
     # elastic
+    remote_es                = local.remote_es
     tamr_es_enabled          = var.tamr_es_enabled
-    tamr_es_apihost          = var.tamr_es_apihost
+    tamr_es_apihost          = local.tamr_es_apihost
     tamr_es_user             = var.tamr_es_user
     tamr_es_password         = var.tamr_es_password
     tamr_es_ssl_enabled      = var.tamr_es_ssl_enabled
@@ -101,6 +105,12 @@ resource "google_storage_bucket_object" "shutdown_script" {
   bucket  = var.tamr_filesystem_bucket
 }
 
+resource "google_compute_address" "tamr_ip" {
+  name         = "${var.tamr_instance_name}-ip"
+  subnetwork   = var.tamr_instance_subnet
+  address_type = "INTERNAL"
+}
+
 # tamr vm
 resource "google_compute_instance" "tamr" {
   name         = var.tamr_instance_name
@@ -118,6 +128,7 @@ resource "google_compute_instance" "tamr" {
 
   network_interface {
     subnetwork = var.tamr_instance_subnet
+    network_ip = google_compute_address.tamr_ip.address
   }
 
   tags = var.tamr_instance_tags

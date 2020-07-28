@@ -287,9 +287,9 @@ variable "tamr_es_enabled" {
 }
 
 variable "tamr_es_apihost" {
-  default     = "localhost:9200"
+  default     = ""
   type        = string
-  description = "The hostname and port of the REST API endpoint of the Elasticsearch cluster to use."
+  description = "The hostname and port of the REST API endpoint of the Elasticsearch cluster to use. If unset will use < ip of vm>:9200"
 }
 
 variable "tamr_es_user" {
