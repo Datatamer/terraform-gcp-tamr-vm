@@ -343,6 +343,12 @@ variable "labels" {
   description = "labels to attach to created resources"
 }
 
+variable "tamr_config" {
+  default     = ""
+  type        = string
+  description = "Override generated tamr configuration. The tamr configuration is specified using a yaml file, in the format that is documented (https://docs.tamr.com/previous/docs/configuration-configuring-unify#section-setting-configuration-variables) for configuring “many variables” at once."
+}
+
 #
 # file system
 #

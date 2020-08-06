@@ -10,8 +10,8 @@ locals {
   tamr_cloud_sql_project   = var.tamr_cloud_sql_project == "" ? var.tamr_instance_project : var.tamr_cloud_sql_project
   tamr_dataproc_project_id = var.tamr_dataproc_project_id == "" ? var.tamr_instance_project : var.tamr_dataproc_project_id
 
-  dataproc_config = var.tamr_dataproc_cluster_config == "" ? local.default_dataproc : var.tamr_dataproc_cluster_config
-
+  dataproc_config  = var.tamr_dataproc_cluster_config == "" ? local.default_dataproc : var.tamr_dataproc_cluster_config
+  tamr_config      = var.tamr_config == "" ? local.default_tamr_config : var.tamr_config
   spark_properties = var.tamr_spark_properties_override == "" ? file("${path.module}/files/spark_properties.json") : var.tamr_spark_properties_override
 
   default_dataproc = templatefile("${path.module}/templates/dataproc.yaml.tmpl", {
@@ -35,7 +35,7 @@ locals {
   })
 
 
-  tamr_config = templatefile("${path.module}/templates/tamr_config.yaml.tmpl", {
+  default_tamr_config = templatefile("${path.module}/templates/tamr_config.yaml.tmpl", {
     # Bigtable
     tamr_hbase_namespace      = var.tamr_hbase_namespace
     tamr_bigtable_project_id  = local.tamr_bigtable_project_id
