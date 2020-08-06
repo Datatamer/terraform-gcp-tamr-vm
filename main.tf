@@ -18,6 +18,7 @@ locals {
     subnetwork_uri       = local.tamr_dataproc_cluster_subnetwork_uri
     service_account      = local.tamr_dataproc_cluster_service_account
     zone                 = local.tamr_dataproc_cluster_zone
+    region               = var.tamr_dataproc_region
     stackdriver_logging  = var.tamr_dataproc_cluster_enable_stackdriver_logging
     version              = var.tamr_dataproc_cluster_version
     tamr_dataproc_bucket = var.tamr_dataproc_bucket
