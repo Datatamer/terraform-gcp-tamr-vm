@@ -1,3 +1,6 @@
+# Tamr Terraform Template Repo - v0.2.1 - August 6th 2020
+* Add zone/region flags into dataproc workflow template
+
 # Tamr Terraform Template Repo - v0.2.0 - August 4th 2020
 * Upgrade to spark 2.4
 * Pin GCS connector version
