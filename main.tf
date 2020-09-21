@@ -80,6 +80,12 @@ locals {
     tamr_json_logging = var.tamr_json_logging
   })
 
+  bootstrap_script = templatefile("${path.module}/templates/bootstrap.sh.tmpl", {
+    bootstrap_node         = var.bootstrap_node
+    tamr_filesystem_bucket = var.tamr_filesystem_bucket
+    startup_script_path    = google_storage_bucket_object.startup_script.name
+  })
+
   startup_sript = templatefile("${path.module}/templates/startup_script.sh.tmpl", {
     tamr_zip_uri        = var.tamr_zip_uri
     tamr_config         = local.tamr_config
@@ -151,13 +157,7 @@ resource "google_compute_instance" "tamr" {
   # NOTE: we are using the startup_script field instead of the `startup-script-url` pair in metadata, in order to force
   # a recreation of the tamr VM after a configuration change. We want the tamr vm to be fully declarative and to not be
   # a pet vm.
-  metadata_startup_script = <<-EOF
-#! /bin/bash
-
-gsutil cp gs://${var.tamr_filesystem_bucket}/${google_storage_bucket_object.startup_script.name} /tmp/startup_script.sh
-/bin/bash /tmp/startup_script.sh
-
-EOF
+  metadata_startup_script = local.bootstrap_script
 
   allow_stopping_for_update = true
 }

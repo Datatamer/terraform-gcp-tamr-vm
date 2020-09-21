@@ -72,13 +72,13 @@ This modules creates:
 | tamr\_dataproc\_bucket | GCS bucket to use for the tamr dataproc cluster | `string` | n/a | yes |
 | tamr\_dataproc\_region | Region the dataproc uses. | `string` | n/a | yes |
 | tamr\_filesystem\_bucket | GCS bucket to use for the tamr default file system | `string` | n/a | yes |
-| tamr\_instance\_image | Image to use for boot disk | `string` | n/a | yes |
 | tamr\_instance\_project | The project to launch the tamr VM instance in. | `string` | n/a | yes |
 | tamr\_instance\_service\_account | email of service account to attach to the tamr instance | `string` | n/a | yes |
 | tamr\_instance\_subnet | subnetwork to attach instance too | `string` | n/a | yes |
 | tamr\_instance\_zone | zone to deploy tamr vm | `string` | n/a | yes |
 | tamr\_sql\_password | password for the cloud sql user | `string` | n/a | yes |
 | tamr\_zip\_uri | gcs location to download tamr zip from | `string` | n/a | yes |
+| bootstrap\_node | if set to true will attempt to install required packages for tamr to be installed and run. SEE: https://docs.tamr.com/new/docs/requirements | `bool` | `false` | no |
 | labels | labels to attach to created resources | `map(string)` | `{}` | no |
 | tamr\_bigtable\_project\_id | The google project that the bigtable instance lives in. If not set will use the tamr\_instance\_project as the default value. | `string` | `""` | no |
 | tamr\_cloud\_sql\_project | project containing cloudsql instance. If not set will use the tamr\_instance\_project as the default value. | `string` | `""` | no |
@@ -108,6 +108,7 @@ This modules creates:
 | tamr\_hbase\_namespace | HBase namespace to user, for bigtable this will be the table prefix. | `string` | `"ns0"` | no |
 | tamr\_instance\_disk\_size | size of the boot disk | `number` | `100` | no |
 | tamr\_instance\_disk\_type | boot disk type | `string` | `"pd-ssd"` | no |
+| tamr\_instance\_image | Image to use for boot disk | `string` | `"ubuntu-1804-bionic-v20200916"` | no |
 | tamr\_instance\_install\_directory | directory to install tamr into | `string` | `"/data/tamr"` | no |
 | tamr\_instance\_machine\_type | machine type to use for tamr vm | `string` | `"n1-highmem-8"` | no |
 | tamr\_instance\_name | Name of the VM running tamr | `string` | `"tamr"` | no |

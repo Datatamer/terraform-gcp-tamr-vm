@@ -18,9 +18,16 @@ variable "tamr_instance_zone" {
   description = "zone to deploy tamr vm"
 }
 
+variable "bootstrap_node" {
+  default     = false
+  type        = bool
+  description = "if set to true will attempt to install required packages for tamr to be installed and run. SEE: https://docs.tamr.com/new/docs/requirements"
+}
+
 # NOTE: for right now requiring this to be set, in the future will use either
 # a publish tamr image or a default ubuntu image
 variable "tamr_instance_image" {
+  default     = "ubuntu-1804-bionic-v20200916"
   type        = string
   description = "Image to use for boot disk"
 }
