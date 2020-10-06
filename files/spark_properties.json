@@ -4,8 +4,8 @@
       'spark.executor.memoryOverhead':'2048',
       'spark.executor.extraJavaOptions':'-Djdk.nio.maxCachedBufferSize=262144',
       'spark.driver.maxResultSize':'8g',
-      'spark.task.maxFailures':'50',
-      'spark.stage.maxConsecutiveAttempts':'10',
+      'spark.task.maxFailures':'4',
+      'spark.stage.maxConsecutiveAttempts':'4',
       'spark.sql.shuffle.partitions':'3100',
       'spark.default.parallelism':'2900',
     }
