@@ -121,10 +121,11 @@ resource "google_compute_address" "external_ip" {
 
 # tamr vm
 resource "google_compute_instance" "tamr" {
-  name         = var.tamr_instance_name
-  machine_type = var.tamr_instance_machine_type
-  zone         = var.tamr_instance_zone
-  project      = var.tamr_instance_project
+  name                = var.tamr_instance_name
+  machine_type        = var.tamr_instance_machine_type
+  zone                = var.tamr_instance_zone
+  project             = var.tamr_instance_project
+  deletion_protection = var.tamr_instance_deletion_protection
 
   boot_disk {
     initialize_params {

@@ -107,6 +107,7 @@ This modules creates:
 | tamr\_es\_user | Username to use to authenticate to Elasticsearch.  Not required unless the Elasticsearch cluster you're using has security and authentication enabled. | `string` | `""` | no |
 | tamr\_external\_ip | Create and attach an external ip to tamr VM | `bool` | `false` | no |
 | tamr\_hbase\_namespace | HBase namespace to user, for bigtable this will be the table prefix. | `string` | `"ns0"` | no |
+| tamr\_instance\_deletion\_protection | Enabled deletion protection for the tamr VM | `bool` | `true` | no |
 | tamr\_instance\_disk\_size | size of the boot disk | `number` | `100` | no |
 | tamr\_instance\_disk\_type | boot disk type | `string` | `"pd-ssd"` | no |
 | tamr\_instance\_install\_directory | directory to install tamr into | `string` | `"/data/tamr"` | no |

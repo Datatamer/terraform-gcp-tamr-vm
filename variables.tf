@@ -47,6 +47,12 @@ variable "tamr_instance_subnet" {
   description = "subnetwork to attach instance too"
 }
 
+variable "tamr_instance_deletion_protection" {
+  type        = bool
+  description = "Enabled deletion protection for the tamr VM"
+  default     = true
+}
+
 variable "tamr_external_ip" {
   type        = bool
   description = "Create and attach an external ip to tamr VM"
