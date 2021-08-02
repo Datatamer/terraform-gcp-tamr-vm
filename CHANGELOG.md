@@ -1,3 +1,7 @@
+# Tamr Terraform Template Repo - v0.3.0 - August 2nd 2020
+* Added support for external IPs
+* Added support for deletion protection
+
 # Tamr Terraform Template Repo - v0.2.1 - August 6th 2020
 * Add zone/region flags into dataproc workflow template
 

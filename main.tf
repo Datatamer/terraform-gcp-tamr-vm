@@ -12,6 +12,7 @@ locals {
 
   dataproc_config  = var.tamr_dataproc_cluster_config == "" ? local.default_dataproc : var.tamr_dataproc_cluster_config
   tamr_config      = var.tamr_config == "" ? local.default_tamr_config : var.tamr_config
+  external_ip      = var.tamr_external_ip == true ? 1 : 0
   spark_properties = var.tamr_spark_properties_override == "" ? file("${path.module}/files/spark_properties.json") : var.tamr_spark_properties_override
 
   default_dataproc = templatefile("${path.module}/templates/dataproc.yaml.tmpl", {
@@ -112,12 +113,19 @@ resource "google_compute_address" "tamr_ip" {
   address_type = "INTERNAL"
 }
 
+resource "google_compute_address" "external_ip" {
+  count        = local.external_ip
+  name         = var.tamr_instance_name
+  address_type = "EXTERNAL"
+}
+
 # tamr vm
 resource "google_compute_instance" "tamr" {
-  name         = var.tamr_instance_name
-  machine_type = var.tamr_instance_machine_type
-  zone         = var.tamr_instance_zone
-  project      = var.tamr_instance_project
+  name                = var.tamr_instance_name
+  machine_type        = var.tamr_instance_machine_type
+  zone                = var.tamr_instance_zone
+  project             = var.tamr_instance_project
+  deletion_protection = var.tamr_instance_deletion_protection
 
   boot_disk {
     initialize_params {
@@ -130,6 +138,13 @@ resource "google_compute_instance" "tamr" {
   network_interface {
     subnetwork = var.tamr_instance_subnet
     network_ip = google_compute_address.tamr_ip.address
+
+    dynamic "access_config" {
+      for_each = google_compute_address.external_ip
+      content {
+        nat_ip = access_config.value.address
+      }
+    }
   }
 
   tags = var.tamr_instance_tags

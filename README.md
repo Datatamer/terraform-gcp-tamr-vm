@@ -105,7 +105,9 @@ This modules creates:
 | tamr\_es\_socket\_timeout | Defines the socket timeout for Elasticsearch clients, in milliseconds. This is the timeout for waiting for data or, put differently, a maximum period of inactivity between two consecutive data packets. A timeout value of zero is interpreted as an infinite timeout. A negative value is interpreted as undefined (system default).  The default value is 900000, i.e., fifteen minutes. | `number` | `900000` | no |
 | tamr\_es\_ssl\_enabled | Whether to connect to Elasticsearch over https or not.  Default is false (http). | `bool` | `false` | no |
 | tamr\_es\_user | Username to use to authenticate to Elasticsearch.  Not required unless the Elasticsearch cluster you're using has security and authentication enabled. | `string` | `""` | no |
+| tamr\_external\_ip | Create and attach an external ip to tamr VM | `bool` | `false` | no |
 | tamr\_hbase\_namespace | HBase namespace to user, for bigtable this will be the table prefix. | `string` | `"ns0"` | no |
+| tamr\_instance\_deletion\_protection | Enabled deletion protection for the tamr VM | `bool` | `true` | no |
 | tamr\_instance\_disk\_size | size of the boot disk | `number` | `100` | no |
 | tamr\_instance\_disk\_type | boot disk type | `string` | `"pd-ssd"` | no |
 | tamr\_instance\_install\_directory | directory to install tamr into | `string` | `"/data/tamr"` | no |
