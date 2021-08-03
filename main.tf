@@ -103,7 +103,7 @@ resource "google_storage_bucket_object" "startup_script" {
 
 resource "google_storage_bucket_object" "shutdown_script" {
   name    = "tamr_gcp_shutdown.sh"
-  content = local.startup_sript
+  content = local.shutdown_sript
   bucket  = var.tamr_filesystem_bucket
 }
 
