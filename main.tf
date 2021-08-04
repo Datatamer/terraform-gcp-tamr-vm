@@ -81,13 +81,13 @@ locals {
     tamr_json_logging = var.tamr_json_logging
   })
 
-  startup_sript = templatefile("${path.module}/templates/startup_script.sh.tmpl", {
+  startup_script = templatefile("${path.module}/templates/startup_script.sh.tmpl", {
     tamr_zip_uri        = var.tamr_zip_uri
     tamr_config         = local.tamr_config
     tamr_home_directory = var.tamr_instance_install_directory
   })
 
-  shutdown_sript = templatefile("${path.module}/templates/shutdown_script.sh.tmpl", {
+  shutdown_script = templatefile("${path.module}/templates/shutdown_script.sh.tmpl", {
     tamr_home_directory = var.tamr_instance_install_directory
   })
 }
@@ -96,14 +96,14 @@ locals {
 # 1) so sensitive config, like passwords are not viewable from the VM meta-data directly in the console
 # 2) to work around script limit sizes
 resource "google_storage_bucket_object" "startup_script" {
-  name    = "tamr_gcp_startup_${md5(local.startup_sript)}.sh"
-  content = local.startup_sript
+  name    = "tamr_gcp_startup_${md5(local.startup_script)}.sh"
+  content = local.startup_script
   bucket  = var.tamr_filesystem_bucket
 }
 
 resource "google_storage_bucket_object" "shutdown_script" {
   name    = "tamr_gcp_shutdown.sh"
-  content = local.shutdown_sript
+  content = local.shutdown_script
   bucket  = var.tamr_filesystem_bucket
 }
 
