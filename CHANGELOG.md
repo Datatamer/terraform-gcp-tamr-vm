@@ -1,3 +1,6 @@
+# Tamr Terraform Template Repo - v0.3.1 - August 4nd 2021
+* Correct content of shutdown-script resource
+
 # Tamr Terraform Template Repo - v0.3.0 - August 2nd 2020
 * Added support for external IPs
 * Added support for deletion protection

@@ -32,6 +32,6 @@ output "tmpl_dataproc_config" {
 }
 
 output "tmpl_statup_script" {
-  value       = local.startup_sript
+  value       = local.startup_script
   description = "rendered metadata startup script"
 }
