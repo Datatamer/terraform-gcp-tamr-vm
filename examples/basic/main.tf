@@ -25,7 +25,7 @@ module "sample" {
   tamr_cloud_sql_location = local.default_region
   tamr_cloud_sql_name     = "tamr-db"
   tamr_sql_user           = "tamr"
-  tamr_sql_password       = "super_secure_password"
+  tamr_sql_password       = "super_secure_password" # tfsec:ignore:GEN003
   # filesystem
   tamr_filesystem_bucket = "tamr_application_home"
 }

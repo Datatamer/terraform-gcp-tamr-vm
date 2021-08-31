@@ -89,7 +89,7 @@ This modules creates:
 | tamr\_dataproc\_cluster\_master\_instance\_type | Instance type to use as dataproc master This only used if using the built in tamr\_dataproc\_cluster\_config configuration | `string` | `"n1-highmem-4"` | no |
 | tamr\_dataproc\_cluster\_service\_account | Service account to attach to dataproc workers. If not set will use the tamr\_instance\_service\_account as the default value. This only used if using the built in tamr\_dataproc\_cluster\_config configuration | `string` | `""` | no |
 | tamr\_dataproc\_cluster\_subnetwork\_uri | Subnetwork URI for dataproc to use. If not set will use the tamr\_instance\_subnet as the default value. This only used if using the built in tamr\_dataproc\_cluster\_config configuration | `string` | `""` | no |
-| tamr\_dataproc\_cluster\_version | Version of dataproc to use. This only used if using the built in tamr\_dataproc\_cluster\_config configuration | `string` | `"1.3"` | no |
+| tamr\_dataproc\_cluster\_version | Version of dataproc to use. This only used if using the built in tamr\_dataproc\_cluster\_config configuration | `string` | `"1.4"` | no |
 | tamr\_dataproc\_cluster\_worker\_machine\_type | machine type of default worker pool. This only used if using the built in tamr\_dataproc\_cluster\_config configuration | `string` | `"n1-standard-16"` | no |
 | tamr\_dataproc\_cluster\_worker\_num\_instances | Number of default workers to use. This only used if using the built in tamr\_dataproc\_cluster\_config configuration | `number` | `4` | no |
 | tamr\_dataproc\_cluster\_worker\_num\_local\_ssds | Number of localssds to attach to each worker node. This only used if using the built in tamr\_dataproc\_cluster\_config configuration | `number` | `2` | no |

@@ -173,7 +173,7 @@ variable "tamr_dataproc_cluster_enable_stackdriver_logging" {
 }
 
 variable "tamr_dataproc_cluster_version" {
-  default     = "1.3"
+  default     = "1.4"
   type        = string
   description = "Version of dataproc to use. This only used if using the built in tamr_dataproc_cluster_config configuration"
 }

@@ -5,11 +5,7 @@ gceClusterConfig:
   internalIpOnly: true
   serviceAccount: ${service_account}
   metadata:
-    gcs-connector-version: 2.1.4
-initializationActions:
-  # see https://github.com/GoogleCloudDataproc/initialization-actions/tree/master/connectors
-  - executableFile: gs://goog-dataproc-initialization-actions-${region}/connectors/connectors.sh
-    executionTimeout: 500s
+    GCS_CONNECTOR_VERSION: 2.2.0
 softwareConfig:
   imageVersion: 1.4
   properties:
