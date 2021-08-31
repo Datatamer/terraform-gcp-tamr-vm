@@ -1,7 +1,8 @@
 # GCP Tamr VM module
 
 ## v0.4.1 - August 31st 2021
-* Update dataproc workflow template to remove use of public initialization script
+* Updates dataproc workflow template to remove use of public initialization script
+* Bumps dataproc version to 1.4
 
 ## v0.3.1 - August 4nd 2021
 * Correct content of shutdown-script resource
