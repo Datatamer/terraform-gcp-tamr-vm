@@ -50,7 +50,7 @@ variable "tamr_instance_subnet" {
 variable "tamr_instance_deletion_protection" {
   type        = bool
   description = "Enabled deletion protection for the tamr VM"
-  default     = true
+  default     = false
 }
 
 variable "tamr_external_ip" {
