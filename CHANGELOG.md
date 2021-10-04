@@ -1,5 +1,8 @@
 # GCP Tamr VM module
 
+## v0.5.0 - October 4th 2021
+* Sets TAMR_BACKUP_GSUTIL_ENABLED explicitly to true
+
 ## v0.4.1 - August 31st 2021
 * Updates dataproc workflow template to remove use of public initialization script
 * Bumps dataproc version to 1.4
