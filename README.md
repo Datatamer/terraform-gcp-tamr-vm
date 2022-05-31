@@ -49,15 +49,16 @@ This modules creates:
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
-| Name | Version  |
-|------|----------|
+| Name | Version |
+|------|---------|
 | terraform | >= 1.0.0 |
+| google | >= 4.6.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| google | n/a |
+| google | >= 4.6.0 |
 
 ## Inputs
 
