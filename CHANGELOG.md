@@ -1,5 +1,8 @@
 # GCP Tamr VM module
 
+## v1.0.0 - June 1st 2022
+* Set minimum terraform to 1.0.0 and minimum google provider to 4.6.0
+
 ## v0.5.0 - October 4th 2021
 * Sets TAMR_BACKUP_GSUTIL_ENABLED explicitly to true
 

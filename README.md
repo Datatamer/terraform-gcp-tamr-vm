@@ -51,13 +51,14 @@ This modules creates:
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12 |
+| terraform | >= 1.0.0 |
+| google | >= 4.6.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| google | n/a |
+| google | >= 4.6.0 |
 
 ## Inputs
 
