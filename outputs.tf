@@ -5,7 +5,7 @@ output "tamr_instance_self_link" {
 }
 
 output "tamr_instance_internal_ip" {
-  value       = google_compute_instance.tamr.network_interface.0.network_ip
+  value       = google_compute_address.tamr_ip.address
   description = "internal ip of tamr vm"
 }
 
@@ -19,19 +19,7 @@ output "tamr_instance_zone" {
   description = "zone of the tamr vm"
 }
 
-# config files
-# NOTE: these are very useful for debugging
-output "tamr_config_file" {
-  value       = local.tamr_config
-  description = "full tamr config file"
-}
-
-output "tmpl_dataproc_config" {
-  value       = local.default_dataproc
-  description = "dataproc config"
-}
-
-output "tmpl_statup_script" {
+output "tmpl_startup_script" {
   value       = local.startup_script
   description = "rendered metadata startup script"
 }
