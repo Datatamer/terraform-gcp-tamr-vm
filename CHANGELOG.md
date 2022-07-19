@@ -1,5 +1,8 @@
 # GCP Tamr VM module
 
+## v2.0.0 - July 18th 2022
+* Remove overlap with config module
+
 ## v1.0.0 - June 1st 2022
 * Set minimum terraform to 1.0.0 and minimum google provider to 4.6.0
 
