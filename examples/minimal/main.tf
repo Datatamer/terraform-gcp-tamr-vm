@@ -4,7 +4,7 @@ data "google_compute_subnetwork" "project_subnet" {
   project = "tamr-networking"
 }
 
-module "sample" {
+module "minimal" {
   source = "../../"
 
   tamr_instance_project         = var.project_id
