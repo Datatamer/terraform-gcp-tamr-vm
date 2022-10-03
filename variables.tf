@@ -370,9 +370,3 @@ variable "tamr_filesystem_bucket" {
   description = "GCS bucket to use for the tamr default file system"
 }
 
-
-variable "unused_test" {
-  type        = string
-  description = "Here to make jenkins build fail"
-  default     = "unused"
-}
