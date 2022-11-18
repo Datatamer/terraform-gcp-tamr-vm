@@ -175,4 +175,13 @@ gsutil cp gs://${var.tamr_filesystem_bucket}/${google_storage_bucket_object.star
 EOF
 
   allow_stopping_for_update = true
+
+  lifecycle {
+    # NOTE: we are ignoring these as it can cause some expected restarts with the way
+    # this module is being used in the real world
+    ignore_changes = [
+      metadata,
+      metadata_startup_script,
+    ]
+  }
 }
