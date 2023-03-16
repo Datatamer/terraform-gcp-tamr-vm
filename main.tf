@@ -80,7 +80,8 @@ resource "google_compute_instance" "tamr" {
   }
 
   metadata = {
-    shutdown-script-url = "gs://${var.tamr_filesystem_bucket}/${google_storage_bucket_object.shutdown_script.name}"
+    shutdown-script-url    = "gs://${var.tamr_filesystem_bucket}/${google_storage_bucket_object.shutdown_script.name}"
+    block-project-ssh-keys = true
   }
 
   # NOTE: we are using the startup_script field instead of the `startup-script-url` pair in metadata, in order to force
