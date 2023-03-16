@@ -18,7 +18,7 @@ variable "zone_id" {
 }
 
 variable "service_account" {
-  default = ""
+  default = "nondefault-service-account@this-project.gserviceaccount.com"
   type    = string
 }
 
