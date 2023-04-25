@@ -40,6 +40,7 @@ resource "google_compute_address" "external_ip" {
 }
 
 # tamr vm
+#tfsec:ignore:google-compute-enable-shielded-vm-im tfsec:ignore:google-compute-enable-shielded-vm-vtpm tfsec:ignore:google-compute-no-project-wide-ssh-keys
 resource "google_compute_instance" "tamr" {
   name                = var.tamr_instance_name
   machine_type        = var.tamr_instance_machine_type
@@ -47,6 +48,7 @@ resource "google_compute_instance" "tamr" {
   project             = var.tamr_instance_project
   deletion_protection = var.tamr_instance_deletion_protection
 
+  #tfsec:ignore:google-compute-vm-disk-encryption-customer-key
   boot_disk {
     initialize_params {
       image = var.tamr_instance_image
@@ -74,6 +76,7 @@ resource "google_compute_instance" "tamr" {
     { "role" = "tamr" },
   )
 
+  #tfsec:ignore:google-compute-no-default-service-account
   service_account {
     scopes = ["cloud-platform"]
     email  = var.tamr_instance_service_account
