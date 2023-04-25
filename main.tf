@@ -79,9 +79,11 @@ resource "google_compute_instance" "tamr" {
     email  = var.tamr_instance_service_account
   }
 
-  metadata = {
-    shutdown-script-url = "gs://${var.tamr_filesystem_bucket}/${google_storage_bucket_object.shutdown_script.name}"
-  }
+  metadata = merge(var.metadata,
+    {
+      shutdown-script-url = "gs://${var.tamr_filesystem_bucket}/${google_storage_bucket_object.shutdown_script.name}"
+    }
+  )
 
   # NOTE: we are using the startup_script field instead of the `startup-script-url` pair in metadata, in order to force
   # a recreation of the tamr VM after a configuration change. We want the tamr vm to be fully declarative and to not be

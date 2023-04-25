@@ -91,6 +91,12 @@ variable "labels" {
   description = "labels to attach to created resources"
 }
 
+variable "metadata" {
+  default     = {}
+  type        = map(string)
+  description = "custom metadata to attach to created VM"
+}
+
 variable "tamr_config_file" {
   type        = string
   description = "Override generated tamr configuration. The tamr configuration is specified using a yaml file, in the format that is documented (https://docs.tamr.com/previous/docs/configuration-configuring-unify#section-setting-configuration-variables) for configuring “many variables” at once."
