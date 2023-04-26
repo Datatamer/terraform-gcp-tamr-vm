@@ -1,5 +1,11 @@
 # GCP Tamr VM module
 
+## v2.1.0 - April 25th 2023
+* Following optional input variables now available
+  * metadata
+* Allows flexibility for the user of this module to supply custom metadata
+* Creates configuration file as Tamr functional user to avoid permissions issues
+
 ## v2.0.0 - July 18th 2022
 * Remove overlap with config module
 

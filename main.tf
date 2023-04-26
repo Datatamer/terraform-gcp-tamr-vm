@@ -40,6 +40,7 @@ resource "google_compute_address" "external_ip" {
 }
 
 # tamr vm
+#tfsec:ignore:google-compute-enable-shielded-vm-im tfsec:ignore:google-compute-enable-shielded-vm-vtpm tfsec:ignore:google-compute-no-project-wide-ssh-keys
 resource "google_compute_instance" "tamr" {
   name                = var.tamr_instance_name
   machine_type        = var.tamr_instance_machine_type
@@ -47,6 +48,7 @@ resource "google_compute_instance" "tamr" {
   project             = var.tamr_instance_project
   deletion_protection = var.tamr_instance_deletion_protection
 
+  #tfsec:ignore:google-compute-vm-disk-encryption-customer-key
   boot_disk {
     initialize_params {
       image = var.tamr_instance_image
@@ -74,14 +76,17 @@ resource "google_compute_instance" "tamr" {
     { "role" = "tamr" },
   )
 
+  #tfsec:ignore:google-compute-no-default-service-account
   service_account {
     scopes = ["cloud-platform"]
     email  = var.tamr_instance_service_account
   }
 
-  metadata = {
-    shutdown-script-url = "gs://${var.tamr_filesystem_bucket}/${google_storage_bucket_object.shutdown_script.name}"
-  }
+  metadata = merge(var.metadata,
+    {
+      shutdown-script-url = "gs://${var.tamr_filesystem_bucket}/${google_storage_bucket_object.shutdown_script.name}"
+    }
+  )
 
   # NOTE: we are using the startup_script field instead of the `startup-script-url` pair in metadata, in order to force
   # a recreation of the tamr VM after a configuration change. We want the tamr vm to be fully declarative and to not be

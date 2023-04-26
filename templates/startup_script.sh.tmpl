@@ -20,7 +20,7 @@ if [[ ! -f ${tamr_home_directory}/tamr/start.sh ]]; then
     sudo -S -u tamr -i /bin/bash -c 'unzip ${tamr_home_directory}/unify.zip -d ${tamr_home_directory}'
 
     # apply custom config
-    echo -e "$${TAMR_CONFIG}" > ${tamr_home_directory}/tamr/conf/unify-custom-config.yaml
+    sudo -S -u tamr -i /bin/bash -c 'echo -e "$${TAMR_CONFIG}" > ${tamr_home_directory}/tamr/conf/unify-custom-config.yaml'
     chown -R tamr:tamr ${tamr_home_directory}/tamr/conf/unify-custom-config.yaml
 fi
 
