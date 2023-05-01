@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# run any custom commands to prepare VM
-%{ if pre_start_script != "" }
-${pre_start_script}
-%{ endif }
-
 # create tamr user, to run tamr
 adduser --shell /bin/bash --home /home/tamr tamr
 
@@ -21,6 +16,10 @@ EOF
 
 # check if tamr has been installed on the VM, if not download and install it
 if [[ ! -f ${tamr_home_directory}/tamr/start.sh ]]; then
+    # run any custom commands to prepare VM
+    %{ if pre_start_script }
+    ${pre_start_script}
+    %{ endif }
     # download tamr install
     sudo -S -u tamr -i /bin/bash -c 'gsutil cp ${tamr_zip_uri} ${tamr_home_directory}/unify.zip'
     # unzip and install unify
