@@ -39,6 +39,7 @@ This modules creates:
 | tamr\_zip\_uri | gcs location to download tamr zip from | `string` | n/a | yes |
 | labels | labels to attach to created resources | `map(string)` | `{}` | no |
 | metadata | custom metadata to attach to created VM | `map(string)` | `{}` | no |
+| pre\_start\_script\_content | custom script to run prior to startup\_script | `string` | `""` | no |
 | tamr\_external\_ip | Create and attach an external ip to tamr VM | `bool` | `false` | no |
 | tamr\_instance\_deletion\_protection | Enabled deletion protection for the tamr VM | `bool` | `true` | no |
 | tamr\_instance\_disk\_size | size of the boot disk | `number` | `100` | no |

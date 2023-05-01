@@ -1,5 +1,10 @@
 # GCP Tamr VM module
 
+## v2.2.0 - April 28th 2023
+* Following optional input variables now available
+  * pre_start_script_content
+* Allow users to supply custom script to prepare VM
+
 ## v2.1.0 - April 25th 2023
 * Following optional input variables now available
   * metadata

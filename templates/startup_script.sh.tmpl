@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# run any custom commands to prepare VM
+%{ if pre_start_script != "" }
+${pre_start_script}
+%{ endif }
+
 # create tamr user, to run tamr
 adduser --shell /bin/bash --home /home/tamr tamr
 
@@ -11,6 +16,8 @@ TAMR_CONFIG=$(cat <<EOF
 ${tamr_config}
 EOF
 )
+
+
 
 # check if tamr has been installed on the VM, if not download and install it
 if [[ ! -f ${tamr_home_directory}/tamr/start.sh ]]; then

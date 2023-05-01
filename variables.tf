@@ -102,6 +102,12 @@ variable "tamr_config_file" {
   description = "Override generated tamr configuration. The tamr configuration is specified using a yaml file, in the format that is documented (https://docs.tamr.com/previous/docs/configuration-configuring-unify#section-setting-configuration-variables) for configuring “many variables” at once."
 }
 
+variable "pre_start_script_content" {
+  default     = ""
+  type        = string
+  description = "custom script to run prior to startup_script"
+}
+
 #
 # file system
 #
