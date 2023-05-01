@@ -20,14 +20,14 @@ EOF
 
 
 # check if tamr has been installed on the VM, if not download and install it
-if [[ ! -f ${tamr_home_directory}/tamr/start.sh ]]; then
+if [[ ! -f ${tamr_home_directory}/tamr/start-unify.sh ]]; then
     # download tamr install
     sudo -S -u tamr -i /bin/bash -c 'gsutil cp ${tamr_zip_uri} ${tamr_home_directory}/unify.zip'
     # unzip and install unify
     sudo -S -u tamr -i /bin/bash -c 'unzip ${tamr_home_directory}/unify.zip -d ${tamr_home_directory}'
 
     # apply custom config
-    sudo -S -u tamr -i /bin/bash -c 'echo -e "$${TAMR_CONFIG}" > ${tamr_home_directory}/tamr/conf/unify-custom-config.yaml'
+    TAMR_CONFIG=$TAMR_CONFIG sudo -Eu tamr /bin/bash -c 'echo -e "$${TAMR_CONFIG}" > ${tamr_home_directory}/tamr/conf/unify-custom-config.yaml'
     chown -R tamr:tamr ${tamr_home_directory}/tamr/conf/unify-custom-config.yaml
 fi
 
