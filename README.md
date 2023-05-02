@@ -39,6 +39,7 @@ This modules creates:
 | tamr\_zip\_uri | gcs location to download tamr zip from | `string` | n/a | yes |
 | labels | labels to attach to created resources | `map(string)` | `{}` | no |
 | metadata | custom metadata to attach to created VM | `map(string)` | `{}` | no |
+| pre\_install\_bash | Bash to be run before Tamr is installed.<br>  Likely to be used to meet Tamr's prerequisites, if not already met by the image. (https://docs.tamr.com/new/docs/requirements )<br>   This will only be run once before Tamr is installed, unless Tamr fails to install. This bash will also be run on subsequent attempts to install Tamr, so it is recommended that this bash is idempotent. | `string` | `""` | no |
 | tamr\_external\_ip | Create and attach an external ip to tamr VM | `bool` | `false` | no |
 | tamr\_instance\_deletion\_protection | Enabled deletion protection for the tamr VM | `bool` | `true` | no |
 | tamr\_instance\_disk\_size | size of the boot disk | `number` | `100` | no |

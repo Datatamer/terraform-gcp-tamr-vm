@@ -2,6 +2,7 @@ locals {
   external_ip = var.tamr_external_ip == true ? 1 : 0
 
   startup_script = templatefile("${path.module}/templates/startup_script.sh.tmpl", {
+    pre_install_bash    = var.pre_install_bash
     tamr_zip_uri        = var.tamr_zip_uri
     tamr_config         = var.tamr_config_file
     tamr_home_directory = var.tamr_instance_install_directory
