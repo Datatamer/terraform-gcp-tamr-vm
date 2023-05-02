@@ -1,7 +1,7 @@
 # GCP Tamr VM module
 
 ## v2.2.1 - May 2nd 2023
-* Adjust condition in startup script to expect a string
+* Remove conditional from bash script template
 
 ## v2.2.0 - May 1st 2023
 * Following optional input variables now available
