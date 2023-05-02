@@ -1,6 +1,6 @@
 # GCP Tamr VM module
 
-## v2.2.0 - May 1st 2023
+## v2.2.1 - May 2nd 2023
 * Adjust condition in startup script to expect a string
 
 ## v2.2.0 - May 1st 2023
