@@ -1,6 +1,9 @@
 # GCP Tamr VM module
 
 ## v2.2.0 - May 1st 2023
+* Adjust condition in startup script to expect a string
+
+## v2.2.0 - May 1st 2023
 * Following optional input variables now available
   * pre_install_bash
 * Allow users to supply custom script to prepare VM
