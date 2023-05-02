@@ -17,8 +17,8 @@ EOF
 # check if tamr has been installed on the VM, if not download and install it
 if [[ ! -f ${tamr_home_directory}/tamr/start-unify.sh ]]; then
     # run any custom commands to prepare VM
-    %{ if pre_start_script }
-    ${pre_start_script}
+    %{ if pre_install_bash }
+    ${pre_install_bash}
     %{ endif }
     # download tamr install
     sudo -S -u tamr -i /bin/bash -c 'gsutil cp ${tamr_zip_uri} ${tamr_home_directory}/unify.zip'
