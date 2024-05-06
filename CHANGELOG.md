@@ -1,5 +1,8 @@
 # GCP Tamr VM module
 
+## v3.0.0 - May 6th 2024
+* Update Google terraform provider version
+
 ## v2.2.1 - May 2nd 2023
 * Remove conditional from bash script template
 
